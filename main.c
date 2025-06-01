@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include "utils.h"
-#include <stdint.h>
 int main(){
-	uint64_t bitboard = 65535ULL; //Prints the black starting positions
+	unsigned long long bitboard = 0ULL; 
+	setBit(&bitboard, e2);
 	printBitboard(bitboard);
-	printChessboard();
+	popBit(&bitboard, e2);
+	printBitboard(bitboard);
+	popBit(&bitboard, e2);
 	return 0;
 }
