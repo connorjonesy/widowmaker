@@ -1,22 +1,32 @@
 #include <stdio.h>
 #include "utils.h"
-int getBit(unsigned long long bitboard, int square){
+int get_bit(unsigned long long bitboard, int square){
 	return (bitboard & (1ULL << square)) != 0; //returns 1 if square is occupied
 }
 
-void setBit(unsigned long long *bitboard, int target){
+void set_bit(unsigned long long *bitboard, int target){
 	*bitboard |= (1ULL << target);
 
 }
-void popBit(unsigned long long *bitboard, int target){
+void pop_bit(unsigned long long *bitboard, int target){
 	if(*bitboard & (1ULL << target))
 		*bitboard &= ~(1ULL << target);
 	else
 		printf("Error: Nothing to Pop, my lord\n");
 	
 }
+void init_bitboard(unsigned long long *bitboard){
+	//init white pieces
+	for(int i=63; i >=48; i--){
+		set_bit(bitboard, i);
+	}
+	//init black pieces
+	for(int i=0; i<16;i++){
+		set_bit(bitboard, i);
+	}
 
-void printBitboard(unsigned long long  bitboard){
+}
+void print_bitboard(unsigned long long  bitboard){
 	printf("\n//// Printing Bitboard %c%c%c%c \n\n", 92, 92, 92, 92);
 
 	for(int rank = 0; rank <8; rank++){
@@ -29,7 +39,7 @@ void printBitboard(unsigned long long  bitboard){
 				printf("%d  ", 8 - rank);
 			}	
 
-			printf("%d ", getBit(bitboard,square));
+			printf("%d ", get_bit(bitboard,square));
 		}
 		printf("\n");
 	
@@ -38,7 +48,7 @@ void printBitboard(unsigned long long  bitboard){
 	printf("Bitboard: 0x%llx\n", bitboard);
 }
 
-void printChessboard(){
+void print_chessboard(){
 
 	printf("\n//// Printing Chessboard %c%c%c%c \n\n", 92, 92, 92, 92);
 
