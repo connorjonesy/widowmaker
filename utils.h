@@ -20,6 +20,26 @@ enum squares {
 
 enum sides { white, black };
 
+
+typedef struct{
+	unsigned long long bpawns;
+	unsigned long long wpawns;
+	unsigned long long bknights;
+	unsigned long long wknights;
+	unsigned long long bbishops;
+	unsigned long long wbishops;
+	unsigned long long brooks;
+	unsigned long long wrooks;
+	unsigned long long bqueen;
+	unsigned long long wqueen;
+	unsigned long long bking;
+	unsigned long long wking;
+}Pieceboards;
+//some thoughts on this implementation:
+//I think this is probably unnecessary...and has to compare 12 addresses in the 
+//worst case which could affect performance...
+//I will continue to mull it over...
+
 #endif
 
 

@@ -1,3 +1,3 @@
-gcc main.c utils.c -o bin/main
+gcc main.c utils.c logic.c -o bin/main
 ./bin/main
 
