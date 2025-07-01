@@ -1,6 +1,6 @@
 #include "logic.h"
 #include "utils.h"
-
+#include <stdio.h>
 
 //params: the side to move, the pawn's current square
 //objective: get a bitboard mask of possible attacks for the pawn
@@ -34,7 +34,7 @@ unsigned long long pawn_attacks_mask(int side, int square){
 } // confirmed this works but probably sucks because so many ifs... 
 
 
-unsigned long long knight_attacks_mask(int side, int square){
+unsigned long long knight_attacks_mask(int square){
 	unsigned long long attack_board = 0ULL;
 	unsigned long long bitboard = 0ULL;
 	set_bit(&bitboard,square);
@@ -77,3 +77,48 @@ unsigned long long knight_attacks_mask(int side, int square){
 	return attack_board;
 
 } 
+
+unsigned long long bishop_attacks_mask(int square){ 
+	unsigned long long attack_board = 0ULL;
+	unsigned long long bitboard = 0ULL;
+	set_bit(&bitboard, square);
+	int test_square = square; //iterator
+	//Northeast Diagonal
+	while( (test_square+1) % 8 != 0 && test_square > 7 ){ //while NOT on H file AND NOT on 8th rank, keep adding to bitboard northeast diag
+		attack_board |= bitboard >> 7;
+		test_square -= 7;
+		bitboard >>= 7;
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//Southeast Diagonal
+	while( (test_square+1) % 8 != 0 && test_square < 56 ){ //while NOT on H file AND NOT on 1st rank, keep adding to bitboard Souththeast diag
+		attack_board |= bitboard << 9;
+		test_square += 9;
+		bitboard <<=9;
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//Northwest Diagonal
+	while( test_square % 8 != 0 && test_square > 7 ){ //while NOT on A file AND NOT on 8th rank, keep adding to bitboard northwest diag
+		attack_board |= bitboard >> 9;
+		test_square -= 9;
+		bitboard >>=9;
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//Southwest Diagonal
+	while( test_square % 8 != 0 && test_square < 56 ){ //while NOT on A file AND NOT on 1st rank, keep adding to bitboard southwest diag
+		attack_board |= bitboard << 7;
+		test_square += 7;
+		bitboard <<=7;
+	}
+	return attack_board;
+	
+}
