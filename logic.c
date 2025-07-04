@@ -122,3 +122,77 @@ unsigned long long bishop_attacks_mask(int square){
 	return attack_board;
 	
 }
+
+unsigned long long rook_attacks_mask(int square){
+	unsigned long long attack_board = 0ULL;
+	unsigned long long bitboard = 0ULL;
+	set_bit(&bitboard, square);
+	int test_square = square; //iterator
+	//east
+	while( (test_square+1) % 8 != 0 ){ //while NOT on H file
+		attack_board |= bitboard << 1;
+		test_square += 1;
+		bitboard <<= 1;
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//west
+	while(test_square % 8 != 0 ){ //while NOT on A file
+		attack_board |= bitboard >> 1;
+		test_square -= 1;
+		bitboard >>= 1;
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//north
+	while( test_square > 7 ){ //while NOT on 8th rank
+		attack_board |= bitboard >> 8;
+		test_square -= 8;
+		bitboard >>= 8;
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//south
+	while( test_square < 56){ //while NOT on 1st rank
+		attack_board |= bitboard << 8;
+		test_square += 8;
+		bitboard <<= 8;
+	}
+	return attack_board;
+}
+
+
+unsigned long long queen_attacks_mask(int square){
+	unsigned long long rook_attack_board = rook_attacks_mask(square);
+	unsigned long long bishop_attack_board = bishop_attacks_mask(square);
+	return rook_attack_board | bishop_attack_board;
+}
+
+unsigned long long king_attacks_mask(int square){
+	unsigned long long attack_board = 0ULL;
+	unsigned long long bitboard = 0ULL;
+	set_bit(&bitboard, square);
+	if( (square+1) % 8 != 0) // not on H file
+		attack_board |= bitboard << 1;
+	if( (square+1) % 8 != 0 && square > 7 )//while NOT on H file AND NOT on 8th rank, add to bitboard northeast diag
+		attack_board |= bitboard >> 7;
+	if( square % 8 != 0) // not on A file
+		attack_board |= bitboard >> 1;
+	if( square % 8 != 0 && square > 7 )//while NOT on A file AND NOT on 8th rank, add to bitboard northwest diag
+		attack_board |= bitboard >> 9;
+	if( square < 56) // not on 1st rank
+		attack_board |= bitboard << 8;
+	if( (square+1) % 8 != 0 && square < 56 )//while NOT on H file AND NOT on 1st rank, add to bitboard southeast diag
+		attack_board |= bitboard << 9;
+	if( square > 7) // not on 8th rank
+		attack_board |= bitboard >> 8;
+	if( square % 8 != 0 && square < 56 )//while NOT on A file AND NOT on 1st rank, add to bitboard southwest diag
+		attack_board |= bitboard << 7;
+	return attack_board;
+}
