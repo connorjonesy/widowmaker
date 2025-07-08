@@ -85,7 +85,7 @@ unsigned long long bishop_attacks_mask(int square){
 	set_bit(&bitboard, square);
 	int test_square = square; //iterator
 	//Northeast Diagonal
-	while( (test_square+1) % 8 != 0 && test_square > 7 ){ //while NOT on H file AND NOT on 8th rank, keep adding to bitboard northeast diag
+	while( (test_square+1) % 8 != 0 && (test_square+2) % 8 != 0 && test_square > 15 ){ //while NOT on G,H file AND NOT on 7,8th rank, keep adding to bitboard northeast diag
 		attack_board |= bitboard >> 7;
 		test_square -= 7;
 		bitboard >>= 7;
@@ -95,7 +95,7 @@ unsigned long long bishop_attacks_mask(int square){
 	set_bit(&bitboard, square);
 
 	//Southeast Diagonal
-	while( (test_square+1) % 8 != 0 && test_square < 56 ){ //while NOT on H file AND NOT on 1st rank, keep adding to bitboard Souththeast diag
+	while(  (test_square+1) % 8 != 0 && (test_square+2) % 8 != 0 && test_square < 48 ){ //while NOT on G,H file AND NOT on 1,2nd rank, keep adding to bitboard Souththeast diag
 		attack_board |= bitboard << 9;
 		test_square += 9;
 		bitboard <<=9;
@@ -105,7 +105,7 @@ unsigned long long bishop_attacks_mask(int square){
 	set_bit(&bitboard, square);
 
 	//Northwest Diagonal
-	while( test_square % 8 != 0 && test_square > 7 ){ //while NOT on A file AND NOT on 8th rank, keep adding to bitboard northwest diag
+	while(  (test_square-1) % 8 != 0 && test_square % 8 != 0 && test_square > 15 ){ //while NOT on A,B file AND NOT on 7,8th rank, keep adding to bitboard northwest diag
 		attack_board |= bitboard >> 9;
 		test_square -= 9;
 		bitboard >>=9;
@@ -115,7 +115,7 @@ unsigned long long bishop_attacks_mask(int square){
 	set_bit(&bitboard, square);
 
 	//Southwest Diagonal
-	while( test_square % 8 != 0 && test_square < 56 ){ //while NOT on A file AND NOT on 1st rank, keep adding to bitboard southwest diag
+	while( (test_square-1) % 8 != 0 && test_square % 8 != 0 && test_square < 48 ){ //while NOT on A,B file AND NOT on 1,2nd rank, keep adding to bitboard southwest diag
 		attack_board |= bitboard << 7;
 		test_square += 7;
 		bitboard <<=7;
@@ -130,7 +130,7 @@ unsigned long long rook_attacks_mask(int square){
 	set_bit(&bitboard, square);
 	int test_square = square; //iterator
 	//east
-	while( (test_square+1) % 8 != 0 ){ //while NOT on H file
+	while( ((test_square+2) % 8 != 0 && test_square+1) % 8 != 0 ){ //while NOT on H,G file
 		attack_board |= bitboard << 1;
 		test_square += 1;
 		bitboard <<= 1;
@@ -140,7 +140,7 @@ unsigned long long rook_attacks_mask(int square){
 	set_bit(&bitboard, square);
 
 	//west
-	while(test_square % 8 != 0 ){ //while NOT on A file
+	while((test_square-1) % 8 != 0 && test_square % 8 != 0 ){ //while NOT on A,B file
 		attack_board |= bitboard >> 1;
 		test_square -= 1;
 		bitboard >>= 1;
@@ -150,7 +150,7 @@ unsigned long long rook_attacks_mask(int square){
 	set_bit(&bitboard, square);
 
 	//north
-	while( test_square > 7 ){ //while NOT on 8th rank
+	while( test_square > 15 ){ //while NOT on 7,8th rank
 		attack_board |= bitboard >> 8;
 		test_square -= 8;
 		bitboard >>= 8;
@@ -160,7 +160,7 @@ unsigned long long rook_attacks_mask(int square){
 	set_bit(&bitboard, square);
 
 	//south
-	while( test_square < 56){ //while NOT on 1st rank
+	while( test_square < 48){ //while NOT on 1,2nd rank
 		attack_board |= bitboard << 8;
 		test_square += 8;
 		bitboard <<= 8;
@@ -209,3 +209,6 @@ bool pawn_blocked(int square, int side, unsigned long long game_board){
 	}
 	return false;
 }
+
+
+//MAGIC BITBOARDS

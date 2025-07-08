@@ -38,13 +38,13 @@ unsigned long long pawn_attacks_mask(int, int);
 //get knight attacks / movement
 unsigned long long knight_attacks_mask(int);
 
-//get bishop attacks / movement
+//get bishop attacks / movement --- MAGIC bitboards for slider pieces
 unsigned long long bishop_attacks_mask(int);
 
-//get rook attacks / movement
+//get rook attacks / movement --- MAGIC bitboards for slider pieces
 unsigned long long rook_attacks_mask(int);
 
-//get queen attacks / movement
+//get queen attacks / movement --- MAGIC bitboards for slider pieces
 unsigned long long queen_attacks_mask(int);
 
 //get king attacks / movement
@@ -52,5 +52,9 @@ unsigned long long king_attacks_mask(int);
 
 //check if pawn can move forward (not attacking)
 bool pawn_blocked(int,int, unsigned long long);
+
+
+//MAGIC BITBOARDS - for finding sliding piece attack masks despite pieces that may be blocking their path
+
 
 #endif
