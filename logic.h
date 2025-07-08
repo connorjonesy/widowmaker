@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 #ifndef LOGIC_H
 #define LOGIC_H
 
@@ -48,6 +50,7 @@ unsigned long long queen_attacks_mask(int);
 //get king attacks / movement
 unsigned long long king_attacks_mask(int);
 
-
+//check if pawn can move forward (not attacking)
+bool pawn_blocked(int,int, unsigned long long);
 
 #endif

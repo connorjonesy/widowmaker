@@ -1,4 +1,5 @@
 #include "logic.h"
+#include <stdbool.h>
 #include "utils.h"
 #include <stdio.h>
 
@@ -195,4 +196,16 @@ unsigned long long king_attacks_mask(int square){
 	if( square % 8 != 0 && square < 56 )//while NOT on A file AND NOT on 1st rank, add to bitboard southwest diag
 		attack_board |= bitboard << 7;
 	return attack_board;
+}
+
+bool pawn_blocked(int square, int side, unsigned long long game_board){
+
+	if(side){ //black
+		if( (((1ULL << square) << 8) & game_board) !=0 ) //pawn is blocked
+			return true;
+	}else{ //white
+		if( (((1ULL << square) >> 8) & game_board) !=0 ) //pawn is blocked
+			return true;
+	}
+	return false;
 }
