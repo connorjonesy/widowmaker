@@ -1,4 +1,4 @@
-#Widowmaker Chess Engine
+# Widowmaker Chess Engine
 
 Widowmaker is a hobby chess engine written in C by me.
 
