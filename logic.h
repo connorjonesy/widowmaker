@@ -38,13 +38,13 @@ unsigned long long pawn_attacks_mask(int, int);
 //get knight attacks / movement
 unsigned long long knight_attacks_mask(int);
 
-//get bishop attacks / movement --- MAGIC bitboards for slider pieces
+//get bishop attacks / movement --- MAGIC bitboards for sliding pieces
 unsigned long long bishop_attacks_mask(int);
 
-//get rook attacks / movement --- MAGIC bitboards for slider pieces
+//get rook attacks / movement --- MAGIC bitboards for sliding pieces
 unsigned long long rook_attacks_mask(int);
 
-//get queen attacks / movement --- MAGIC bitboards for slider pieces
+//get queen attacks / movement --- MAGIC bitboards for sliding pieces
 unsigned long long queen_attacks_mask(int);
 
 //get king attacks / movement
@@ -55,6 +55,15 @@ bool pawn_blocked(int,int, unsigned long long);
 
 
 //MAGIC BITBOARDS - for finding sliding piece attack masks despite pieces that may be blocking their path
+//goal is to map blocking-piece-configurations to their resulting move configurations
+//in other words, blocking bitboard is the hash key, insert in hash func, get index for the legal move/attack bitboard
+
+unsigned long long generate_bishop_attacks(int, unsigned long long);
+unsigned long long generate_rook_attacks(int, unsigned long long);
+
+
+
+
 
 
 #endif

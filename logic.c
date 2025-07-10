@@ -211,4 +211,104 @@ bool pawn_blocked(int square, int side, unsigned long long game_board){
 }
 
 
-//MAGIC BITBOARDS
+//MAGIC BITBOARDS\\
+
+unsigned long long generate_bishop_attacks(int square, unsigned long long occupied){
+	
+	unsigned long long attack_board = 0ULL;
+	unsigned long long bitboard = 0ULL;
+	set_bit(&bitboard, square);
+	int test_square = square; //iterator
+	//Northeast Diagonal
+	while( (test_square+1) % 8 != 0  && test_square > 7 ){ //while NOT on H file AND NOT on 8th rank AND next spot isn't occupied, keep adding to bitboard northeast diag
+		attack_board |= bitboard >> 7;
+		test_square -= 7;
+		bitboard >>= 7;
+		if(bitboard & occupied) break;
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//Southeast Diagonal
+	while(  (test_square+1) % 8 != 0 && test_square < 56 ){ //while NOT on H file AND NOT on 1st rank AND ..., keep adding to bitboard Souththeast diag
+		attack_board |= bitboard << 9;
+		test_square += 9;
+		bitboard <<=9;
+		if(bitboard & occupied) break;
+	
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//Northwest Diagonal
+	while( test_square % 8 != 0 && test_square > 7 ){ //while NOT on A file AND NOT on 8th rank AND ..., keep adding to bitboard northwest diag
+		attack_board |= bitboard >> 9;
+		test_square -= 9;
+		bitboard >>=9;
+		if(bitboard & occupied) break;
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//Southwest Diagonal
+	while( test_square % 8 != 0 && test_square < 56 ){ //while NOT on A file AND NOT on 1st rank AND ..., keep adding to bitboard southwest diag
+		attack_board |= bitboard << 7;
+		test_square += 7;
+		bitboard <<=7;
+		if(bitboard & occupied) break;
+	}
+	return attack_board;
+
+
+}
+
+unsigned long long generate_rook_attacks(int square, unsigned long long occupied){
+	unsigned long long attack_board = 0ULL;
+	unsigned long long bitboard = 0ULL;
+	set_bit(&bitboard, square);
+	int test_square = square; //iterator
+	//east
+	while( (test_square+1) % 8 != 0 ){ //while NOT on H file
+		attack_board |= bitboard << 1;
+		test_square += 1;
+		bitboard <<= 1;
+		if(bitboard & occupied) break;
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//west
+	while(test_square % 8 != 0 ){ //while NOT on A file
+		attack_board |= bitboard >> 1;
+		test_square -= 1;
+		bitboard >>= 1;
+		if(bitboard & occupied) break;
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//north
+	while( test_square > 7 ){ //while NOT on 8th rank
+		attack_board |= bitboard >> 8;
+		test_square -= 8;
+		bitboard >>= 8;
+		if(bitboard & occupied) break;
+	}
+	test_square = square; //reset
+	bitboard = 0ULL;
+	set_bit(&bitboard, square);
+
+	//south
+	while( test_square < 56){ //while NOT on 1st rank
+		attack_board |= bitboard << 8;
+		test_square += 8;
+		bitboard <<= 8;
+		if(bitboard & occupied) break;
+	}
+	return attack_board;
+}

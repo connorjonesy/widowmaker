@@ -9,9 +9,13 @@ int main(){
 	//unsigned long long bitboard = 0ULL; 
 	//init_bitboard(&bitboard);
 
-
-
-	print_bitboard(rook_attacks_mask(d4));
+	//init occupancy
+	unsigned long long occupied = 0ULL;
+	set_bit(&occupied, b6);
+	set_bit(&occupied, g7);
+	set_bit(&occupied, e3);
+	print_bitboard(occupied);
+	print_bitboard(generate_rook_attacks(b1, occupied));
 
 
 	return 0;
