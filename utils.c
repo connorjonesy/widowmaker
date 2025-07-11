@@ -61,3 +61,12 @@ void print_chessboard(){
 	//}
 	printf("\n");
 }
+
+int count_bits(unsigned long long bb){
+	int count = 0;
+	while(bb != 0){
+		bb &= (bb-1);
+		count+=1;
+	}
+	return count;
+}

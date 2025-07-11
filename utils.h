@@ -7,6 +7,9 @@ int get_bit(unsigned long long, int);
 void set_bit(unsigned long long*, int);
 void pop_bit(unsigned long long*, int);
 void init_bitboard(unsigned long long*);
+int count_bits(unsigned long long);
+
+
 enum squares {
    a8, b8, c8, d8, e8, f8, g8, h8,
    a7, b7, c7, d7, e7, f7, g7, h7,
@@ -35,10 +38,6 @@ typedef struct{
 	unsigned long long bking;
 	unsigned long long wking;
 }Pieceboards;
-//some thoughts on this implementation:
-//I think this is probably unnecessary...and has to compare 12 addresses in the 
-//worst case which could affect performance...
-//I will continue to mull it over...
 
 #endif
 

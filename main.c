@@ -14,6 +14,8 @@ int main(){
 	set_bit(&occupied, b6);
 	set_bit(&occupied, g7);
 	set_bit(&occupied, e3);
+	int bits = count_bits(occupied);
+	printf("%d", bits);
 	print_bitboard(occupied);
 	print_bitboard(generate_rook_attacks(b1, occupied));
 
