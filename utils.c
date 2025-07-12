@@ -70,3 +70,23 @@ int count_bits(unsigned long long bb){
 	}
 	return count;
 }
+
+
+int get_least_significant_bit(unsigned long long bb){
+	if(bb){
+		return count_bits((bb & -bb) - 1);
+	}else{
+		return -1;
+	}
+}
+
+
+
+unsigned int generate_pseudo_rand_number(){ // TODO insert correct parameters for using state
+	unsigned int num = state; //change dis
+	num ^= num << 13;
+	num ^= num >> 17;
+	num ^= num << 5;
+	state = num;
+	return num;
+}

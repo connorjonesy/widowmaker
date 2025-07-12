@@ -312,3 +312,16 @@ unsigned long long generate_rook_attacks(int square, unsigned long long occupied
 	}
 	return attack_board;
 }
+
+
+unsigned long long generate_relevant_blocker_mask(int index, int bitcount, unsigned long long *attack_mask){
+	unsigned long long relevant_blocker_mask = 0ULL;
+	unsigned long long copy_mask = *attack_mask;	
+	for(int i=0; i < bitcount; i++){
+		int square = get_least_significant_bit(copy_mask);
+		pop_bit(&copy_mask, square);
+		if(index & (1 << i))
+			relevant_blocker_mask |= (1ULL << square);
+	}
+	return relevant_blocker_mask;
+}

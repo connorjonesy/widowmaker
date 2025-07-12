@@ -60,10 +60,30 @@ bool pawn_blocked(int,int, unsigned long long);
 
 unsigned long long generate_bishop_attacks(int, unsigned long long);
 unsigned long long generate_rook_attacks(int, unsigned long long);
+unsigned long long generate_relevant_blocker_mask(int, int, unsigned long long*);
 
 
+static const int bishop_relevant_occupied_bitcount[64] = {
+ 6, 5, 5, 5, 5, 5, 5, 6,
+ 5, 5, 5, 5, 5, 5, 5, 5,
+ 5, 5, 7, 7, 7, 7, 5, 5,
+ 5, 5, 7, 9, 9, 7, 5, 5,
+ 5, 5, 7, 9, 9, 7, 5, 5,
+ 5, 5, 7, 7, 7, 7, 5, 5,
+ 5, 5, 5, 5, 5, 5, 5, 5,
+ 6, 5, 5, 5, 5, 5, 5, 6
+};
 
 
-
+static const int rook_rel_occ_bitcount[64] = {
+ 12, 11, 11, 11, 11, 11, 11, 19,
+ 11, 10, 10, 10, 10, 10, 10, 18,
+ 11, 10, 10, 10, 10, 10, 10, 18,
+ 11, 10, 10, 10, 10, 10, 10, 18,
+ 11, 10, 10, 10, 10, 10, 10, 18,
+ 11, 10, 10, 10, 10, 10, 10, 18,
+ 11, 10, 10, 10, 10, 10, 10, 18,
+ 12, 11, 11, 11, 11, 11, 11, 12
+};
 
 #endif

@@ -5,19 +5,22 @@
 int main(){
 
 
+	struct Randomstate *state_ptr;
+	state_ptr = (struct Randomstate *)malloc(sizeof(struct Randomstate));
+
 
 	//unsigned long long bitboard = 0ULL; 
 	//init_bitboard(&bitboard);
 
-	//init occupancy
-	unsigned long long occupied = 0ULL;
-	set_bit(&occupied, b6);
-	set_bit(&occupied, g7);
-	set_bit(&occupied, e3);
-	int bits = count_bits(occupied);
-	printf("%d", bits);
-	print_bitboard(occupied);
-	print_bitboard(generate_rook_attacks(b1, occupied));
+
+	for(int r = 0; r < 8; r++){
+		for(int f = 0; f < 8; f++){
+			int square = r * 8 + f;
+			printf(" %d,", count_bits(rook_attacks_mask(square)));
+		}
+		printf("\n");
+	
+	}
 
 
 	return 0;

@@ -8,7 +8,8 @@ void set_bit(unsigned long long*, int);
 void pop_bit(unsigned long long*, int);
 void init_bitboard(unsigned long long*);
 int count_bits(unsigned long long);
-
+int get_least_significant_bit(unsigned long long);
+unsigned int generate_pseudo_rand_number();// TODO insert correct arg type
 
 enum squares {
    a8, b8, c8, d8, e8, f8, g8, h8,
@@ -38,6 +39,13 @@ typedef struct{
 	unsigned long long bking;
 	unsigned long long wking;
 }Pieceboards;
+
+
+struct{
+	unsigned int state;
+}RandomState;
+
+
 
 #endif
 
