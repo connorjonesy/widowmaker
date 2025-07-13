@@ -9,8 +9,8 @@ void pop_bit(unsigned long long*, int);
 void init_bitboard(unsigned long long*);
 int count_bits(unsigned long long);
 int get_least_significant_bit(unsigned long long);
-unsigned int generate_pseudo_rand_number();// TODO insert correct arg type
-
+unsigned int generate_pseudo_rand_number(unsigned int*);
+unsigned long long random_64bit_num(); // Tord Ramstod's proposed method
 enum squares {
    a8, b8, c8, d8, e8, f8, g8, h8,
    a7, b7, c7, d7, e7, f7, g7, h7,
@@ -41,9 +41,9 @@ typedef struct{
 }Pieceboards;
 
 
-struct{
+struct Randomstate{
 	unsigned int state;
-}RandomState;
+};
 
 
 

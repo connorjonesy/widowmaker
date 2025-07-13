@@ -82,11 +82,23 @@ int get_least_significant_bit(unsigned long long bb){
 
 
 
-unsigned int generate_pseudo_rand_number(){ // TODO insert correct parameters for using state
-	unsigned int num = state; //change dis
+unsigned int generate_pseudo_rand_number(unsigned int* state){
+	unsigned int num = *state;
 	num ^= num << 13;
 	num ^= num >> 17;
 	num ^= num << 5;
-	state = num;
+	*state = num;
 	return num;
+}
+
+
+
+
+unsigned long long random_64bit_num(unsigned int* state){
+	unsigned long long u1, u2, u3, u4;
+	u1 = (unsigned long long)(generate_pseudo_rand_number(state) & 0xFFFF);
+	u2 = (unsigned long long)(generate_pseudo_rand_number(state) & 0xFFFF);
+	u3 = (unsigned long long)(generate_pseudo_rand_number(state) & 0xFFFF);
+	u4 = (unsigned long long)(generate_pseudo_rand_number(state) & 0xFFFF);
+	return u1 | (u2 << 16) | (u3 << 32) | (u4 << 48);
 }
